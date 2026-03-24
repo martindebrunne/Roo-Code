@@ -34,7 +34,9 @@ export const AutoApproveDropdown = ({ disabled = false, triggerClassName = "" }:
 		setAlwaysAllowReadOnly,
 		setAlwaysAllowWrite,
 		setAlwaysAllowExecute,
-		setAlwaysAllowMcp,
+		setAlwaysAllowMcpRead,
+		setAlwaysAllowMcpWrite,
+		setAlwaysAllowMcpUnspecified,
 		setAlwaysAllowModeSwitch,
 		setAlwaysAllowSubtasks,
 		setAlwaysAllowFollowupQuestions,
@@ -56,8 +58,14 @@ export const AutoApproveDropdown = ({ disabled = false, triggerClassName = "" }:
 				case "alwaysAllowExecute":
 					setAlwaysAllowExecute(value)
 					break
-				case "alwaysAllowMcp":
-					setAlwaysAllowMcp(value)
+				case "alwaysAllowMcpRead":
+					setAlwaysAllowMcpRead(value)
+					break
+				case "alwaysAllowMcpWrite":
+					setAlwaysAllowMcpWrite(value)
+					break
+				case "alwaysAllowMcpUnspecified":
+					setAlwaysAllowMcpUnspecified(value)
 					break
 				case "alwaysAllowModeSwitch":
 					setAlwaysAllowModeSwitch(value)
@@ -81,7 +89,9 @@ export const AutoApproveDropdown = ({ disabled = false, triggerClassName = "" }:
 			setAlwaysAllowReadOnly,
 			setAlwaysAllowWrite,
 			setAlwaysAllowExecute,
-			setAlwaysAllowMcp,
+			setAlwaysAllowMcpRead,
+			setAlwaysAllowMcpWrite,
+			setAlwaysAllowMcpUnspecified,
 			setAlwaysAllowModeSwitch,
 			setAlwaysAllowSubtasks,
 			setAlwaysAllowFollowupQuestions,

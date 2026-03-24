@@ -66,7 +66,9 @@ export interface ExtensionStateContextType extends ExtensionState {
 	setAlwaysAllowWrite: (value: boolean) => void
 	setAlwaysAllowWriteOutsideWorkspace: (value: boolean) => void
 	setAlwaysAllowExecute: (value: boolean) => void
-	setAlwaysAllowMcp: (value: boolean) => void
+	setAlwaysAllowMcpRead: (value: boolean) => void
+	setAlwaysAllowMcpWrite: (value: boolean) => void
+	setAlwaysAllowMcpUnspecified: (value: boolean) => void
 	setAlwaysAllowModeSwitch: (value: boolean) => void
 	setAlwaysAllowSubtasks: (value: boolean) => void
 	setShowRooIgnoredFiles: (value: boolean) => void
@@ -520,7 +522,10 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		setAlwaysAllowWriteOutsideWorkspace: (value) =>
 			setState((prevState) => ({ ...prevState, alwaysAllowWriteOutsideWorkspace: value })),
 		setAlwaysAllowExecute: (value) => setState((prevState) => ({ ...prevState, alwaysAllowExecute: value })),
-		setAlwaysAllowMcp: (value) => setState((prevState) => ({ ...prevState, alwaysAllowMcp: value })),
+		setAlwaysAllowMcpRead: (value) => setState((prevState) => ({ ...prevState, alwaysAllowMcpRead: value })),
+		setAlwaysAllowMcpWrite: (value) => setState((prevState) => ({ ...prevState, alwaysAllowMcpWrite: value })),
+		setAlwaysAllowMcpUnspecified: (value) =>
+			setState((prevState) => ({ ...prevState, alwaysAllowMcpUnspecified: value })),
 		setAlwaysAllowModeSwitch: (value) => setState((prevState) => ({ ...prevState, alwaysAllowModeSwitch: value })),
 		setAlwaysAllowSubtasks: (value) => setState((prevState) => ({ ...prevState, alwaysAllowSubtasks: value })),
 		setAlwaysAllowFollowupQuestions,

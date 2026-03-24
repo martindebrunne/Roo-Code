@@ -4,7 +4,9 @@ interface AutoApprovalToggles {
 	alwaysAllowReadOnly?: boolean
 	alwaysAllowWrite?: boolean
 	alwaysAllowExecute?: boolean
-	alwaysAllowMcp?: boolean
+	alwaysAllowMcpRead?: boolean
+	alwaysAllowMcpWrite?: boolean
+	alwaysAllowMcpUnspecified?: boolean
 	alwaysAllowModeSwitch?: boolean
 	alwaysAllowSubtasks?: boolean
 	alwaysAllowFollowupQuestions?: boolean

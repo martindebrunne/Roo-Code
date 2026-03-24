@@ -155,7 +155,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		allowedMaxCost,
 		language,
 		alwaysAllowExecute,
-		alwaysAllowMcp,
+		alwaysAllowMcpRead,
+		alwaysAllowMcpWrite,
+		alwaysAllowMcpUnspecified,
 		alwaysAllowModeSwitch,
 		alwaysAllowSubtasks,
 		alwaysAllowWrite,
@@ -370,7 +372,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					alwaysAllowWriteOutsideWorkspace: alwaysAllowWriteOutsideWorkspace ?? undefined,
 					alwaysAllowWriteProtected: alwaysAllowWriteProtected ?? undefined,
 					alwaysAllowExecute: alwaysAllowExecute ?? undefined,
-					alwaysAllowMcp,
+					alwaysAllowMcpRead,
+					alwaysAllowMcpWrite,
+					alwaysAllowMcpUnspecified,
 					alwaysAllowModeSwitch,
 					allowedCommands: allowedCommands ?? [],
 					deniedCommands: deniedCommands ?? [],
@@ -785,7 +789,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 								alwaysAllowWrite={alwaysAllowWrite}
 								alwaysAllowWriteOutsideWorkspace={alwaysAllowWriteOutsideWorkspace}
 								alwaysAllowWriteProtected={alwaysAllowWriteProtected}
-								alwaysAllowMcp={alwaysAllowMcp}
+								alwaysAllowMcpRead={alwaysAllowMcpRead}
+								alwaysAllowMcpWrite={alwaysAllowMcpWrite}
+								alwaysAllowMcpUnspecified={alwaysAllowMcpUnspecified}
 								alwaysAllowModeSwitch={alwaysAllowModeSwitch}
 								alwaysAllowSubtasks={alwaysAllowSubtasks}
 								alwaysAllowExecute={alwaysAllowExecute}

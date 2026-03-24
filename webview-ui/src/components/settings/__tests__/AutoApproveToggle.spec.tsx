@@ -19,7 +19,9 @@ describe("AutoApproveToggle", () => {
 	const initialProps = {
 		alwaysAllowReadOnly: true,
 		alwaysAllowWrite: false,
-		alwaysAllowMcp: false,
+		alwaysAllowMcpRead: false,
+		alwaysAllowMcpWrite: false,
+		alwaysAllowMcpUnspecified: false,
 		alwaysAllowModeSwitch: true,
 		alwaysAllowSubtasks: false,
 		alwaysAllowExecute: true,

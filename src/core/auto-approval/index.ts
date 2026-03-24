@@ -10,14 +10,16 @@ import {
 import { ClineAskResponse } from "../../shared/WebviewMessage"
 
 import { isWriteToolAction, isReadOnlyToolAction } from "./tools"
-import { isMcpToolAlwaysAllowed } from "./mcp"
+import { isMcpToolAlwaysAllowed, getMcpToolType } from "./mcp"
 import { getCommandDecision } from "./commands"
 
 // We have auto-approval actions for different categories.
 export type AutoApprovalState =
 	| "alwaysAllowReadOnly"
 	| "alwaysAllowWrite"
-	| "alwaysAllowMcp"
+	| "alwaysAllowMcpRead"
+	| "alwaysAllowMcpWrite"
+	| "alwaysAllowMcpUnspecified"
 	| "alwaysAllowModeSwitch"
 	| "alwaysAllowSubtasks"
 	| "alwaysAllowExecute"
@@ -30,7 +32,7 @@ export type AutoApprovalStateOptions =
 	| "alwaysAllowWriteOutsideWorkspace" // For `alwaysAllowWrite`.
 	| "alwaysAllowWriteProtected"
 	| "followupAutoApproveTimeoutMs" // For `alwaysAllowFollowupQuestions`.
-	| "mcpServers" // For `alwaysAllowMcp`.
+	| "mcpServers" // For MCP auto-approval settings.
 	| "allowedCommands" // For `alwaysAllowExecute`.
 	| "deniedCommands"
 
@@ -98,11 +100,44 @@ export async function checkAutoApproval({
 			const mcpServerUse = JSON.parse(text) as McpServerUse
 
 			if (mcpServerUse.type === "use_mcp_tool") {
-				return state.alwaysAllowMcp === true && isMcpToolAlwaysAllowed(mcpServerUse, state.mcpServers)
-					? { decision: "approve" }
-					: { decision: "ask" }
+				// Get the tool type based on readOnlyHint
+				const server = state.mcpServers?.find((s) => s.name === mcpServerUse.serverName)
+				const tool = server?.tools?.find((t) => t.name === mcpServerUse.toolName)
+				const toolType = tool ? getMcpToolType(tool) : "unspecified"
+
+				// Check the appropriate auto-approval setting based on tool type
+				if (
+					toolType === "read" &&
+					state.alwaysAllowMcpRead === true &&
+					isMcpToolAlwaysAllowed(mcpServerUse, state.mcpServers)
+				) {
+					return { decision: "approve" }
+				} else if (
+					toolType === "write" &&
+					state.alwaysAllowMcpWrite === true &&
+					isMcpToolAlwaysAllowed(mcpServerUse, state.mcpServers)
+				) {
+					return { decision: "approve" }
+				} else if (
+					toolType === "unspecified" &&
+					state.alwaysAllowMcpUnspecified === true &&
+					isMcpToolAlwaysAllowed(mcpServerUse, state.mcpServers)
+				) {
+					return { decision: "approve" }
+				}
+
+				return { decision: "ask" }
 			} else if (mcpServerUse.type === "access_mcp_resource") {
-				return state.alwaysAllowMcp === true ? { decision: "approve" } : { decision: "ask" }
+				// For resource access, check all MCP settings
+				if (
+					(state.alwaysAllowMcpRead === true ||
+						state.alwaysAllowMcpWrite === true ||
+						state.alwaysAllowMcpUnspecified === true) &&
+					isMcpToolAlwaysAllowed(mcpServerUse, state.mcpServers)
+				) {
+					return { decision: "approve" }
+				}
+				return { decision: "ask" }
 			}
 		} catch (error) {
 			return { decision: "ask" }

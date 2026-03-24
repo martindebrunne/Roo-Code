@@ -10,11 +10,21 @@ type McpToolRowProps = {
 	tool: McpTool
 	serverName?: string
 	serverSource?: "global" | "project"
-	alwaysAllowMcp?: boolean
+	alwaysAllowMcpRead?: boolean
+	alwaysAllowMcpWrite?: boolean
+	alwaysAllowMcpUnspecified?: boolean
 	isInChatContext?: boolean
 }
 
-const McpToolRow = ({ tool, serverName, serverSource, alwaysAllowMcp, isInChatContext = false }: McpToolRowProps) => {
+const McpToolRow = ({
+	tool,
+	serverName,
+	serverSource,
+	alwaysAllowMcpRead,
+	alwaysAllowMcpWrite,
+	alwaysAllowMcpUnspecified,
+	isInChatContext = false,
+}: McpToolRowProps) => {
 	const { t } = useAppTranslation()
 	const isToolEnabled = tool.enabledForPrompt ?? true
 
@@ -62,6 +72,16 @@ const McpToolRow = ({ tool, serverName, serverSource, alwaysAllowMcp, isInChatCo
 									: "text-vscode-descriptionForeground opacity-60"
 							}`}>
 							{tool.name}
+							{tool.readOnlyHint !== undefined && (
+								<span
+									className={`ml-1 text-[10px] font-normal px-1 rounded ${
+										tool.readOnlyHint === true
+											? "text-vscode-badge-background bg-vscode-badge-foreground"
+											: "text-vscode-errorForeground bg-vscode-errorBackground"
+									}`}>
+									{tool.readOnlyHint === true ? "read" : "write"}
+								</span>
+							)}
 						</span>
 					</StandardTooltip>
 				</div>
@@ -70,7 +90,7 @@ const McpToolRow = ({ tool, serverName, serverSource, alwaysAllowMcp, isInChatCo
 				{serverName && (
 					<div className="flex items-center gap-4 flex-shrink-0">
 						{/* Always Allow checkbox - only show when tool is enabled */}
-						{alwaysAllowMcp && isToolEnabled && (
+						{(alwaysAllowMcpRead || alwaysAllowMcpWrite || alwaysAllowMcpUnspecified) && isToolEnabled && (
 							<VSCodeCheckbox
 								checked={tool.alwaysAllow}
 								onChange={handleAlwaysAllowChange}

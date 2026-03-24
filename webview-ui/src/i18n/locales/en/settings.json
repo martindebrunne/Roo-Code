@@ -306,9 +306,17 @@
 				"description": "Allow Roo to create and edit protected files (like .rooignore and .roo/ configuration files) without requiring approval."
 			}
 		},
-		"mcp": {
-			"label": "MCP",
-			"description": "Enable auto-approval of individual MCP tools in the MCP Servers view (requires both this setting and the tool's individual \"Always allow\" checkbox)"
+		"mcpRead": {
+			"label": "MCP Read",
+			"description": "Automatically approve read-only MCP tools (readOnlyHint: true)"
+		},
+		"mcpWrite": {
+			"label": "MCP Write",
+			"description": "Automatically approve write MCP tools (readOnlyHint: false)"
+		},
+		"mcpUnspecified": {
+			"label": "MCP Unspecified",
+			"description": "Automatically approve MCP tools with unspecified read/write behavior (readOnlyHint: undefined)"
 		},
 		"modeSwitch": {
 			"label": "Mode",

@@ -35,7 +35,9 @@ interface McpExecutionProps {
 		source?: "global" | "project"
 	}
 	useMcpServer?: ClineAskUseMcpServer
-	alwaysAllowMcp?: boolean
+	alwaysAllowMcpRead?: boolean
+	alwaysAllowMcpWrite?: boolean
+	alwaysAllowMcpUnspecified?: boolean
 }
 
 export const McpExecution = ({
@@ -46,7 +48,9 @@ export const McpExecution = ({
 	isArguments = false,
 	server,
 	useMcpServer,
-	alwaysAllowMcp = false,
+	alwaysAllowMcpRead,
+	alwaysAllowMcpWrite,
+	alwaysAllowMcpUnspecified,
 }: McpExecutionProps) => {
 	const { t } = useTranslation("mcp")
 
@@ -249,7 +253,9 @@ export const McpExecution = ({
 							}}
 							serverName={useMcpServer.serverName}
 							serverSource={server?.source}
-							alwaysAllowMcp={alwaysAllowMcp}
+							alwaysAllowMcpRead={alwaysAllowMcpRead}
+							alwaysAllowMcpWrite={alwaysAllowMcpWrite}
+							alwaysAllowMcpUnspecified={alwaysAllowMcpUnspecified}
 							isInChatContext={true}
 						/>
 					</div>
@@ -264,7 +270,9 @@ export const McpExecution = ({
 							}}
 							serverName={serverName}
 							serverSource={undefined}
-							alwaysAllowMcp={alwaysAllowMcp}
+							alwaysAllowMcpRead={alwaysAllowMcpRead}
+							alwaysAllowMcpWrite={alwaysAllowMcpWrite}
+							alwaysAllowMcpUnspecified={alwaysAllowMcpUnspecified}
 							isInChatContext={true}
 						/>
 					</div>

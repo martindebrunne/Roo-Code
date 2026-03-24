@@ -1051,6 +1051,69 @@ describe("McpHub", () => {
 			expect(tools[0].alwaysAllow).toBe(true) // allowed-tool
 			expect(tools[1].alwaysAllow).toBe(false) // not-allowed-tool
 		})
+
+		it("should extract readOnlyHint from tool annotations", async () => {
+			const mockConfig = {
+				mcpServers: {
+					"test-server": {
+						type: "stdio",
+						command: "node",
+						args: ["test.js"],
+						alwaysAllow: [],
+					},
+				},
+			}
+
+			// Mock reading config
+			vi.mocked(fs.readFile).mockResolvedValue(JSON.stringify(mockConfig))
+
+			// Set up mock connection with tools that have annotations
+			const mockConnection: ConnectedMcpConnection = {
+				type: "connected",
+				server: {
+					name: "test-server",
+					type: "stdio",
+					command: "node",
+					args: ["test.js"],
+					source: "global",
+				} as any,
+				client: {
+					request: vi.fn().mockResolvedValue({
+						tools: [
+							{
+								name: "read-only-tool",
+								description: "Read-only Tool",
+								annotations: {
+									readOnlyHint: true,
+								},
+							},
+							{
+								name: "write-tool",
+								description: "Write Tool",
+								annotations: {
+									readOnlyHint: false,
+								},
+							},
+							{
+								name: "no-annotation-tool",
+								description: "No Annotation Tool",
+							},
+						],
+					}),
+				} as any,
+				transport: {} as any,
+			}
+			mcpHub.connections = [mockConnection]
+
+			// Fetch tools list
+			const tools = await mcpHub["fetchToolsList"]("test-server", "global")
+
+			// Check that readOnlyHint is extracted correctly
+			expect(tools.length).toBe(3)
+			expect(tools[0].readOnlyHint).toBe(true) // read-only-tool
+			expect(tools[1].readOnlyHint).toBe(false) // write-tool
+			expect(tools[2].readOnlyHint).toBeUndefined() // no-annotation-tool
+		})
 	})
 
 	describe("toggleToolEnabledForPrompt", () => {

@@ -8,7 +8,9 @@ type AutoApproveToggles = Pick<
 	GlobalSettings,
 	| "alwaysAllowReadOnly"
 	| "alwaysAllowWrite"
-	| "alwaysAllowMcp"
+	| "alwaysAllowMcpRead"
+	| "alwaysAllowMcpWrite"
+	| "alwaysAllowMcpUnspecified"
 	| "alwaysAllowModeSwitch"
 	| "alwaysAllowSubtasks"
 	| "alwaysAllowExecute"
@@ -40,12 +42,26 @@ export const autoApproveSettingsConfig: Record<AutoApproveSetting, AutoApproveCo
 		icon: "edit",
 		testId: "always-allow-write-toggle",
 	},
-	alwaysAllowMcp: {
-		key: "alwaysAllowMcp",
-		labelKey: "settings:autoApprove.mcp.label",
-		descriptionKey: "settings:autoApprove.mcp.description",
-		icon: "plug",
-		testId: "always-allow-mcp-toggle",
+	alwaysAllowMcpRead: {
+		key: "alwaysAllowMcpRead",
+		labelKey: "settings:autoApprove.mcpRead.label",
+		descriptionKey: "settings:autoApprove.mcpRead.description",
+		icon: "eye",
+		testId: "always-allow-mcp-read-toggle",
+	},
+	alwaysAllowMcpWrite: {
+		key: "alwaysAllowMcpWrite",
+		labelKey: "settings:autoApprove.mcpWrite.label",
+		descriptionKey: "settings:autoApprove.mcpWrite.description",
+		icon: "edit",
+		testId: "always-allow-mcp-write-toggle",
+	},
+	alwaysAllowMcpUnspecified: {
+		key: "alwaysAllowMcpUnspecified",
+		labelKey: "settings:autoApprove.mcpUnspecified.label",
+		descriptionKey: "settings:autoApprove.mcpUnspecified.description",
+		icon: "question",
+		testId: "always-allow-mcp-unspecified-toggle",
 	},
 	alwaysAllowModeSwitch: {
 		key: "alwaysAllowModeSwitch",

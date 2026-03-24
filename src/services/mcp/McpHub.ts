@@ -1028,6 +1028,7 @@ export class McpHub {
 				...tool,
 				alwaysAllow: hasWildcard || alwaysAllowConfig.includes(tool.name),
 				enabledForPrompt: !disabledToolsList.includes(tool.name),
+				readOnlyHint: tool.annotations?.readOnlyHint,
 			}))
 
 			return tools

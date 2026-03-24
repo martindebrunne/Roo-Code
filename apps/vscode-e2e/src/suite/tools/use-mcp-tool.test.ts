@@ -227,7 +227,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true, // Enable MCP auto-approval
+					alwaysAllowMcpRead: true, // Enable MCP read auto-approval
+					alwaysAllowMcpWrite: true, // Enable MCP write auto-approval
+					alwaysAllowMcpUnspecified: true, // Enable MCP unspecified auto-approval
 					mcpEnabled: true,
 				},
 				text: `Use the MCP filesystem server's read_file tool to read the file "${fileName}". The file exists in the workspace and contains "Initial content for MCP test".`,
@@ -362,7 +364,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true,
+					alwaysAllowMcpRead: true,
+					alwaysAllowMcpWrite: true,
+					alwaysAllowMcpUnspecified: true,
 					mcpEnabled: true,
 				},
 				text: `Use the MCP filesystem server's write_file tool to create a new file called "${newFileName}" with the content "Hello from MCP!".`,
@@ -489,7 +493,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true,
+					alwaysAllowMcpRead: true,
+					alwaysAllowMcpWrite: true,
+					alwaysAllowMcpUnspecified: true,
 					mcpEnabled: true,
 				},
 				text: `Use the MCP filesystem server's list_directory tool to list the contents of the current directory. I want to see the files in the workspace.`,
@@ -628,7 +634,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true,
+					alwaysAllowMcpRead: true,
+					alwaysAllowMcpWrite: true,
+					alwaysAllowMcpUnspecified: true,
 					mcpEnabled: true,
 				},
 				text: `Use the MCP filesystem server's directory_tree tool to show me the directory structure of the current workspace. I want to see the folder hierarchy.`,
@@ -747,7 +755,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true,
+					alwaysAllowMcpRead: true,
+					alwaysAllowMcpWrite: true,
+					alwaysAllowMcpUnspecified: true,
 					mcpEnabled: true,
 				},
 				text: `Use the MCP server "nonexistent-server" to perform some operation. This should trigger an error but the task should still complete gracefully.`,
@@ -850,7 +860,9 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 				configuration: {
 					mode: "code",
 					autoApprovalEnabled: true,
-					alwaysAllowMcp: true,
+					alwaysAllowMcpRead: true,
+					alwaysAllowMcpWrite: true,
+					alwaysAllowMcpUnspecified: true,
 					mcpEnabled: true,
 				},
 				text: `Use the MCP filesystem server's get_file_info tool to get information about the file "${fileName}". This file exists in the workspace and will validate proper message formatting.`,

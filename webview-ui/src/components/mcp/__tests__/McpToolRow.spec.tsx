@@ -50,6 +50,9 @@ describe("McpToolRow", () => {
 		description: "A test tool",
 		alwaysAllow: false,
 		enabledForPrompt: true,
+		annotations: {
+			readOnlyHint: false,
+		},
 	}
 
 	beforeEach(() => {
@@ -70,13 +73,13 @@ describe("McpToolRow", () => {
 	})
 
 	it("shows always allow checkbox when serverName and alwaysAllowMcp are provided", () => {
-		render(<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcp={true} />)
+		render(<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcpRead={true} />)
 
 		expect(screen.getByText("Always allow")).toBeInTheDocument()
 	})
 
 	it("sends message to toggle always allow when checkbox is clicked", () => {
-		render(<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcp={true} />)
+		render(<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcpRead={true} />)
 
 		const checkbox = screen.getByRole("checkbox")
 		fireEvent.click(checkbox)
@@ -96,7 +99,7 @@ describe("McpToolRow", () => {
 			alwaysAllow: true,
 		}
 
-		render(<McpToolRow tool={alwaysAllowedTool} serverName="test-server" alwaysAllowMcp={true} />)
+		render(<McpToolRow tool={alwaysAllowedTool} serverName="test-server" alwaysAllowMcpRead={true} />)
 
 		const checkbox = screen.getByRole("checkbox") as HTMLInputElement
 		expect(checkbox.checked).toBe(true)
@@ -106,7 +109,7 @@ describe("McpToolRow", () => {
 		const mockOnClick = vi.fn()
 		render(
 			<div onClick={mockOnClick}>
-				<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcp={true} />
+				<McpToolRow tool={mockTool} serverName="test-server" alwaysAllowMcpRead={true} />
 			</div>,
 		)
 
@@ -190,14 +193,14 @@ describe("McpToolRow", () => {
 
 	it("hides always allow checkbox when tool is disabled", () => {
 		const disabledTool = { ...mockTool, enabledForPrompt: false }
-		render(<McpToolRow tool={disabledTool} serverName="test-server" alwaysAllowMcp={true} />)
+		render(<McpToolRow tool={disabledTool} serverName="test-server" alwaysAllowMcpRead={true} />)
 
 		expect(screen.queryByText("Always allow")).not.toBeInTheDocument()
 	})
 
 	it("shows always allow checkbox when tool is enabled", () => {
 		const enabledTool = { ...mockTool, enabledForPrompt: true }
-		render(<McpToolRow tool={enabledTool} serverName="test-server" alwaysAllowMcp={true} />)
+		render(<McpToolRow tool={enabledTool} serverName="test-server" alwaysAllowMcpRead={true} />)
 
 		expect(screen.getByText("Always allow")).toBeInTheDocument()
 	})
@@ -284,5 +287,38 @@ describe("McpToolRow", () => {
 		// Check that the description has normal opacity
 		expect(toolDescription).toHaveClass("opacity-80")
 		expect(toolDescription).not.toHaveClass("opacity-40")
+	})
+
+	it("shows read badge when tool has readOnlyHint set to true", () => {
+		const readOnlyTool = {
+			...mockTool,
+			readOnlyHint: true,
+		}
+		render(<McpToolRow tool={readOnlyTool} serverName="test-server" />)
+
+		expect(screen.getByText("test-tool")).toBeInTheDocument()
+		expect(screen.getByText("read")).toBeInTheDocument()
+	})
+
+	it("does not show read badge when tool has readOnlyHint set to false", () => {
+		const nonReadOnlyTool = {
+			...mockTool,
+			readOnlyHint: false,
+		}
+		render(<McpToolRow tool={nonReadOnlyTool} serverName="test-server" />)
+
+		expect(screen.getByText("test-tool")).toBeInTheDocument()
+		expect(screen.queryByText("read")).not.toBeInTheDocument()
+	})
+
+	it("does not show read badge when readOnlyHint is undefined", () => {
+		const toolWithoutReadOnlyHint = {
+			...mockTool,
+			readOnlyHint: undefined,
+		}
+		render(<McpToolRow tool={toolWithoutReadOnlyHint} serverName="test-server" />)
+
+		expect(screen.getByText("test-tool")).toBeInTheDocument()
+		expect(screen.queryByText("readOnly")).not.toBeInTheDocument()
 	})
 })

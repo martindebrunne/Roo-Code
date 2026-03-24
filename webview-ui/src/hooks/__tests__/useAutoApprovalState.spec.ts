@@ -8,7 +8,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: false,
 				alwaysAllowWrite: false,
 				alwaysAllowExecute: false,
-				alwaysAllowMcp: false,
+				alwaysAllowMcpRead: false,
+				alwaysAllowMcpWrite: false,
+				alwaysAllowMcpUnspecified: false,
 				alwaysAllowModeSwitch: false,
 				alwaysAllowSubtasks: false,
 				alwaysAllowFollowupQuestions: false,
@@ -24,7 +26,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: undefined,
 				alwaysAllowWrite: undefined,
 				alwaysAllowExecute: undefined,
-				alwaysAllowMcp: undefined,
+				alwaysAllowMcpRead: undefined,
+				alwaysAllowMcpWrite: undefined,
+				alwaysAllowMcpUnspecified: undefined,
 				alwaysAllowModeSwitch: undefined,
 				alwaysAllowSubtasks: undefined,
 				alwaysAllowFollowupQuestions: undefined,
@@ -40,7 +44,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: true,
 				alwaysAllowWrite: false,
 				alwaysAllowExecute: false,
-				alwaysAllowMcp: false,
+				alwaysAllowMcpRead: false,
+				alwaysAllowMcpWrite: false,
+				alwaysAllowMcpUnspecified: false,
 				alwaysAllowModeSwitch: false,
 				alwaysAllowSubtasks: false,
 				alwaysAllowFollowupQuestions: false,
@@ -56,7 +62,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: true,
 				alwaysAllowWrite: true,
 				alwaysAllowExecute: true,
-				alwaysAllowMcp: false,
+				alwaysAllowMcpRead: false,
+				alwaysAllowMcpWrite: false,
+				alwaysAllowMcpUnspecified: false,
 				alwaysAllowModeSwitch: false,
 				alwaysAllowSubtasks: false,
 				alwaysAllowFollowupQuestions: false,
@@ -72,7 +80,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: true,
 				alwaysAllowWrite: true,
 				alwaysAllowExecute: true,
-				alwaysAllowMcp: true,
+				alwaysAllowMcpRead: true,
+				alwaysAllowMcpWrite: true,
+				alwaysAllowMcpUnspecified: true,
 				alwaysAllowModeSwitch: true,
 				alwaysAllowSubtasks: true,
 				alwaysAllowFollowupQuestions: true,
@@ -114,7 +124,9 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: false,
 				alwaysAllowWrite: false,
 				alwaysAllowExecute: false,
-				alwaysAllowMcp: false,
+				alwaysAllowMcpRead: false,
+				alwaysAllowMcpWrite: false,
+				alwaysAllowMcpUnspecified: false,
 				alwaysAllowModeSwitch: false,
 				alwaysAllowSubtasks: false,
 				alwaysAllowFollowupQuestions: false,
@@ -253,7 +265,7 @@ describe("useAutoApprovalState", () => {
 				alwaysAllowReadOnly: 1 as any, // truthy non-boolean
 				alwaysAllowWrite: "" as any, // falsy non-boolean
 				alwaysAllowExecute: null as any, // falsy non-boolean
-				alwaysAllowMcp: "yes" as any, // truthy non-boolean
+				alwaysAllowMcpRead: "yes" as any, // truthy non-boolean
 			}
 
 			const { result } = renderHook(() => useAutoApprovalState(toggles, true))

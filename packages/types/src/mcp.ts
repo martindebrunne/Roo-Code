@@ -73,6 +73,7 @@ export type McpTool = {
 	inputSchema?: object
 	alwaysAllow?: boolean
 	enabledForPrompt?: boolean
+	readOnlyHint?: boolean
 }
 
 export type McpResource = {
